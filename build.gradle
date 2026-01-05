@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '3.3.5'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.sist.web'
+version = '0.0.1-SNAPSHOT'
+description = 'board'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+    // Spring Boot 스타터
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+    // MyBatis
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+
+    // JSP & JSTL (필요 시)
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+    implementation 'jakarta.el:jakarta.el-api:6.0.0'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // 개발용
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // DB 드라이버 (Oracle 예시)
+    runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
+
+    // Tomcat 제공 런타임
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+    // 테스트
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.2'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
